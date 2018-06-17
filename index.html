@@ -1,0 +1,114 @@
+# webclass
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>輔大附近早餐店</title>
+    <link href="styles/style.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script> 
+  </head>
+  
+  <body>
+    <script> 
+        $(document).ready(function(){
+            $("html").ready(function(){
+                var h1=$("h1");
+                h1.animate({right:'100px', opacity: '0.8', height:'+=80', width:'+=150'},"slow");
+                h1.animate({fontSize:'3em'},"slow");
+            });
+        });
+    </script>
+    <h1 style="height:50px;width:100px;position:relative">早安輔仁</h1>
+    <img src="images/breakfast.jpg" alt="breakfast image">
+    <br>
+    <select id="street"></select>
+    <select id="style"></select>
+    <button id="button" onclick="SearchStore()">搜尋</button>
+    <p id="searchResult"></p>
+  </body>
+  <script type="text/javascript">
+    
+    //////////////////////////////////////////////////
+    // 建立街道的下拉式選單
+    //////////////////////////////////////////////////
+    var road = ['中正路','514巷','建國一路'];
+    var road_select = document.getElementById("street");
+    var road_inner = "";
+
+    for(var i = 0;i<road.length;i++){
+      road_inner = road_inner + '<option value=i>' + road[i] + '</option>';
+    }
+    
+    // 產生下拉式選單
+    road_select.innerHTML = road_inner;
+    
+    //////////////////////////////////////////////////
+    // 建立店家風格的下拉式選單
+    //////////////////////////////////////////////////
+    var style = ['中式','西式'];
+    var style_select = document.getElementById("style");
+    var style_inner = " ";
+    
+    for(var i = 0;i<style.length;i++){
+      style_inner = style_inner + '<option value=i>' + style[i] + '</option>';
+    }
+  
+    // 產生下拉式選單
+    style_select.innerHTML = style_inner;
+    
+    //////////////////////////////////////////////////
+    // 建立店家資料庫(JSON格式)
+    //////////////////////////////////////////////////
+    database = {
+      "弘爺漢堡輔大店" : {
+        "style" : "西式",
+        "street" : "中正路",
+        "url" : "https://ppt.cc/fAyWtx"
+      },
+      "愛玉早餐店" : {
+        "style" : "西式",
+        "street" : "514巷",
+        "url" : "https://ppt.cc/fwGl2x"
+      },
+      "蛋蛋屋早餐店" : {
+        "style" : "西式",
+        "street" : "514巷",
+        "url" : "https://ppt.cc/fgNbqx"
+      },
+      "晨花早餐店" : {
+        "style" : "西式",
+        "street" : "建國一路",
+        "url" : "https://ppt.cc/fX6fMx"
+      },
+      "早安美之城新莊輔大店" : {
+        "style" : "西式",
+        "street" : "514巷",
+        "url" : "http://www.macc.com.tw/"
+      },
+      "輔大永和豆漿大王" : {
+        "style" : "中式",
+        "street" : "中正路",
+        "url" : "https://ppt.cc/fm0B8x"
+      }
+    }
+
+    function SearchStore(index){
+      var road_select = document.getElementById("street");
+      var style_select = document.getElementById("style");
+      var search_result = document.getElementById("searchResult");
+      
+      search_result.innerHTML = "";
+      
+      for(key in database){
+        if(database[key].street == road_select.options[road_select.selectedIndex].text &&
+           database[key].style == style_select.options[style_select.selectedIndex].text){
+          search_result.innerHTML +=  key + "<br>";
+          search_result.innerHTML +=  database[key]["url"] + "<br>";
+          search_result.innerHTML +=  "<br>";
+          
+        }
+      }
+    }
+   
+  </script>
+</html>
